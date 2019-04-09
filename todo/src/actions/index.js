@@ -1,6 +1,9 @@
-export const todo = item => {
+export const ADD_TODO = 'ADD_TODO';
+
+export const addTodo = item => {
+    console.log(item)
     return {
-        value: '',
-        completed: false
+        type: ADD_TODO,
+        payload: item
     }
 }
