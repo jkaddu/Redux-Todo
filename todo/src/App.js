@@ -1,28 +1,54 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
+import { addTodo, toggleCompleted } from './actions/index';
+
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    state = {
+        newTodo: ''
+    }
+
+    handleChange = e => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+
+    addTodoList = e => {
+        e.preventDefault();
+        this.props.addTodo(this.state.newTodo);
+    }
+
+    toggleCompleted = id => {
+        this.props.toggleCompleted(id);
+    }
+    render() {
+        return (
+            <>
+            <div className='todo'>
+            {this.props.todolist.map(item => (
+                <h2>{item.todoItem}</h2>
+            ))}
+            </div>
+            <input
+             name='newTodo'
+             type='text'
+             placeholder='Add item'
+             value={this.state.newTodo}
+             onChange={this.handleChange}
+             />
+             <button onClick={this.addTodoList}>Add  Todo</button>
+             </>
+        )
+    }
 }
 
-export default App;
+const mapStateToProps = state => ({
+    todolist: state.items
+})
+
+export default connect(
+    mapStateToProps,
+    { addTodo, toggleCompleted }
+)(App);
+
+

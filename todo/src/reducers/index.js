@@ -1,29 +1,37 @@
-import { ADD_TODO } from '../actions';
+import { ADD_TODO, TOGGLE_COMPLETED } from '../actions';
 
 const initialState = {
-    ttile: 'Todo List',
+    title: 'Todo List',
     items: [
-        { item: 'Walk the dog', completed: false, id: 1},
-        { item: 'Washt the dishes', completed: false, id: 2 }
+        { todoItem: 'Walk the dog', completed: false, id: 1},
+        { todoItem: 'Washt the dishes', completed: false, id: 2 }
     ]
 }
 
 function reducer( state = initialState, action) {
-    {
         switch(action.type) {
             case ADD_TODO:
-                const newItem = {
-                    item: action.payload,
+                const newtodoItem = {
+                    todoItem: action.payload,
                     id: Date.now(),
                     completed: false
                 }
                 return {
                     ...state,
-                    items: [...state.items, newItems]
+                    todoItems: [...state.todoItems, newtodoItem]
+                }
+            case TOGGLE_COMPLETED:
+                return{
+                    ...state,
+                    todoItems: state.todoItems.map(item =>
+                        item.id === action.payload
+                        ? { ...item, completed: !item.completed }
+                        : item
+                    )
                 }
                 default: 
                     return state;
         }
-    }
 }
 
+export default reducer;

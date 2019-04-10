@@ -1,9 +1,18 @@
 export const ADD_TODO = 'ADD_TODO';
+export const TOGGLE_COMPLETED = 'TOGGLE_COMPLETED';
 
-export const addTodo = item => {
-    console.log(item)
+export const addTodo = todoItem => {
+    console.log(todoItem)
     return {
         type: ADD_TODO,
-        payload: item
+        payload: todoItem
+    }
+}
+
+export const toggleCompleted = id => {
+    console.log('toggle completed');
+    return {
+        type: TOGGLE_COMPLETED,
+        payload: id
     }
 }
